@@ -152,10 +152,19 @@ def addPlanToList():
                 
     session.close()
 
-# def addListToInventory():
+def addListToInventory():
+    # adds ingredients from shopping list to inventory
+    # useful after going on a shopping trip
+    session = DBSession()
+    list_ingredients = view_shoppinglist()
+    for id in list_ingredients.keys():
+        
 
 # def addIngToInventory(ingredient):
     # needs to add to both Inventory and InventoryTransationHistory
+
+# def addIngToInventory2(ingredient):
+    # adds to Inventory, but not InventoryTransationHistory
 
 
 # addRecIng("pizza", "cheese", 3)
@@ -205,11 +214,36 @@ def view_recipe_ingredients(rec_name=None, rec_id=None):
 
     session.close()
 
-# def view_mealplan():
+def view_mealplan():
+    session = DBSession()
+    q = session.query(MealPlanItem)
+    meals = {}
+    for meal in q:
+        meals[meal.rec_id] = {"name": meal.recipe.name, "amount": meal.amount}
+        print(meals)
+    return meals
+    session.close()
 
-# def view_shoppinglist():
+def view_shoppinglist():
+    session = DBSession()
+    q = session.query(ShoppingListItem)
+    ingredients = {}
+    for item in q:
+        ingredients[item.ing_id] = {"name": item.ingredient.name, "amount": item.amount}
+    return ingredients
+    session.close()
 
-# def view_inventory():
+def view_inventory():
+    session = DBSession()
+    q = session.query(Inventory)
+    inv_items = {}
+    for item in q:
+        inv_items[item.ing_id] = {"name": item.ingredient.name, "amount": item.amount}
+    print(inv_items)
+    return inv_items
+    session.close()
+
+view_inventory()
 
 
 # Update
@@ -238,5 +272,7 @@ def view_recipe_ingredients(rec_name=None, rec_id=None):
 # def del_ing_from_inv(ing):
     # does not keep transaction history of deletion; use in case of inv discrepancies
 
+# def clear_shoppinglist():
 
+# def clear_mealplan():
 
