@@ -10,15 +10,28 @@
     <link rel="stylesheet" href="/static/css/pb.css">
   </head>
   <body>
-        <div class="jumbotron text-center" id="title">
-            <h1>{{ title }}</h1>
-            <h5>A general purpose kitchen app.</h5>
+    {% include 'navbar.html' %}
+        <div class="jumbotron" id="title">
+          <div class="row justify-content-center">
+            <div class="col-xs-2 text-center">
+                <img src="/static/img/svg/pan.svg" height="200px">
+            </div>
+            <div class="col-xs-8 text-center">
+                <h1>{{ title }}</h1>
+                <h5>A general purpose kitchen app.</h5>
+            </div>
+            <div class="col-xs-2 text-center">
+                <img src="/static/img/svg/rice.svg" height="200px">
+            </div>
+          </div>
+            
         </div>
         <div class="container">
             <div class="row">
+        <div class="col-sm text-center"><img src="/static/img/svg/cereals.svg"> </div>
         <div class="col-sm text-center"></div>
         <div class="col-sm text-center"></div>
-        <div class="col-sm text-center"></div>
+        <div class="col-sm text-center"><img src="/static/img/svg/groceries.svg"></div>
     </div><!-- end row -->
     </div><!-- end container -->
   </body>

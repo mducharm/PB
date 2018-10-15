@@ -179,7 +179,8 @@ def addListToInventory():
     session.close()
 
 # def addIngToInventory(ingredient):
-    # needs to add to both Inventory and InventoryTransationHistory
+    # adds ingredient to both Inventory and InventoryTransationHistory
+    # session = DBSession()
 
 # def addIngToInventory2(ingredient):
     # adds to Inventory, but not InventoryTransationHistory
@@ -261,7 +262,6 @@ def view_inventory():
     return inv_items
     session.close()
 
-addListToInventory()
 
 
 # Update
