@@ -156,9 +156,27 @@ def addListToInventory():
     # adds ingredients from shopping list to inventory
     # useful after going on a shopping trip
     session = DBSession()
-    list_ingredients = view_shoppinglist()
-    for id in list_ingredients.keys():
-        
+    shoppinglist = session.query(ShoppingListItem)
+    for item in shoppinglist:
+        print("get or create {}".format(item.ingredient.name))
+        inv_item, exists = get_or_create(session, Inventory, ing_id=item.ing_id, ingredient=item.ingredient)
+        if exists != True:
+            try:
+                print("does not exist, creating...")
+                inv_item.amount = item.amount
+                session.add(inv_item)
+                session.commit()
+            except:
+                session.rollback()
+        else:
+            try:
+                print("exists in inv, updating amount...")
+                inv_item.amount += item.amount
+                session.add(inv_item)
+                session.commit()
+            except:
+                session.rollback()
+    session.close()
 
 # def addIngToInventory(ingredient):
     # needs to add to both Inventory and InventoryTransationHistory
@@ -243,7 +261,7 @@ def view_inventory():
     return inv_items
     session.close()
 
-view_inventory()
+addListToInventory()
 
 
 # Update
