@@ -1,13 +1,20 @@
-<!-- A grey horizontal navbar that becomes vertical on small screens -->
-<nav class="navbar navbar-expand-sm navbar-dark justify-content-center" id="nav">
 
-        <a href="/" class="navbar-brand">
-            <img src="/static/img/svg/pepper-1.svg" height="75px">
-            </a>
-    
-            <!-- Links -->
-            <ul class="navbar-nav">
-                <!--
+<div class="container">
+<nav class="navbar navbar-expand-sm navbar-dark " id="nav">
+
+  <a href="/" class="navbar-brand">
+    <img src="/static/img/svg/pepper-1.svg" height="75px" class="navbar-brand d-inline-block align-middle">
+    PantryButler
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+    aria-controls="navbarSupportContent" aria-expanded="false" aria-label="Toggle Navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse w-100">
+    <!-- Links -->
+    <ul class="navbar-nav w-100 justify-content-center">
+      <!--
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="/recipes-ingredients/" id="navbardrop" data-toggle="dropdown">Recipes & Ingredients</a>
                 <div class="dropdown-menu">
@@ -16,18 +23,21 @@
                   <a class="dropdown-item" href="/recipes-ingredients/">View All</a>
                 </div>
               </li>-->
-              <li class="nav-item">
-                    <a class="nav-link" href="#">Recipes & Ingredients</a>
-                  </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Shopping List</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Meal Plan</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#">Inventory</a>
-                </li>
-            </ul>
-          
-          </nav>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Recipes & Ingredients</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Shopping List</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Meal Plan</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Inventory</a>
+      </li>
+    </ul>
+
+
+  </div>
+</nav>
+</div>

@@ -6,6 +6,10 @@
     background-color: lightgoldenrodyellow;
 }
 
+a.navbar-brand {
+    font-family: 'Patua One', cursive;
+}
+
 h1 {
     font-family: 'Patua One', cursive;
     font-size: 400%;

@@ -270,10 +270,10 @@ def view_inventory():
 
 # def change_recIng_amount(recipe, ingredient, newAmount):
 
-# def use_inv_item():
+# def use_inv_item(ingredient):
     # deletes from inventory, but also adds inv transation
 
-
+# def use_inv_rec(recipe)
 
 # Delete
 
@@ -288,6 +288,9 @@ def view_inventory():
 # def del_rec_from_mealplan(rec):
 
 # def del_ing_from_inv(ing):
+    # does not keep transaction history of deletion; use in case of inv discrepancies
+
+# def del_ing_from_inv2(ing):
     # does not keep transaction history of deletion; use in case of inv discrepancies
 
 # def clear_shoppinglist():
