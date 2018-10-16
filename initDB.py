@@ -53,6 +53,7 @@ class InventoryTransactionHistory(Base):
     ing_id = Column(Integer, ForeignKey('ingredients.id'), primary_key=True)
     added_or_subtracted = Column(Boolean, unique=False) 
     # added = True, subtracted = False
+    # probably needs amounts too
 
 engine = create_engine('sqlite:///pbdb.db')
 

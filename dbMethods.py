@@ -178,9 +178,21 @@ def addListToInventory():
                 session.rollback()
     session.close()
 
-# def addIngToInventory(ingredient):
+def addIngToInventory(ingredient, amount):
     # adds ingredient to both Inventory and InventoryTransationHistory
-    # session = DBSession()
+    session = DBSession()
+    ing, ingExists = get_or_create(session, Ingredient, name=ingredient)
+    inv_ing, invIngExists = get_or_create(session, Inventory, ingredient=ing, ing_id=ing.id, amount=amount)
+    inv_ing_trans, transExists = get_or_create(session, InventoryTransactionHistory, ing_id=ing.id, added_or_subtracted=True)
+    try:  
+        session.add(inv_ing)
+        session.add(inv_ing_trans)
+        session.commit()
+    except:
+        session.rollback()
+    finally:
+        session.close()
+
 
 # def addIngToInventory2(ingredient):
     # adds to Inventory, but not InventoryTransationHistory
