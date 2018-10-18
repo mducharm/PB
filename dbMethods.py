@@ -182,28 +182,58 @@ def addIngToInventory(ingredient, amount):
     # adds ingredient to both Inventory and InventoryTransationHistory
     session = DBSession()
     ing, ingExists = get_or_create(session, Ingredient, name=ingredient)
-    inv_ing, invIngExists = get_or_create(session, Inventory, ingredient=ing, ing_id=ing.id, amount=amount)
-    inv_ing_trans, transExists = get_or_create(session, InventoryTransactionHistory, ing_id=ing.id, added_or_subtracted=True)
-    try:  
-        session.add(inv_ing)
-        session.add(inv_ing_trans)
+    if ingExists != True:
+        session.add(ing)
         session.commit()
-    except:
-        session.rollback()
-    finally:
-        session.close()
 
+    inv_ing, invIngExists = get_or_create(session, Inventory, ingredient=ing, ing_id=ing.id, amount=amount)
+    transaction = InventoryTransactionHistory(ing_id=ing.id, added_or_subtracted=True, amount=amount)
 
-# def addIngToInventory2(ingredient):
+    if invIngExists != True:
+        try:  
+            session.add(inv_ing)
+            session.add(transaction)
+            session.commit()
+        except:
+            session.rollback()
+    else:
+        try:
+            inv_ing.amount += amount
+            session.add(inv_ing)
+            session.add(transaction)
+            session.commit()
+        except:
+            session.rollback()
+    session.close()
+
+def addIngToInventory2(ingredient, amount):
     # adds to Inventory, but not InventoryTransationHistory
+    session = DBSession()
+    ing, ingExists = get_or_create(session, Ingredient, name=ingredient)
+    if ingExists != True:
+        session.add(ing)
+        session.commit()
 
-
-# addRecIng("pizza", "cheese", 3)
-# addRecIng("pizza", "tomato sauce", 1)
-
-# addRecToPlan("pizza")
-
-# addPlanToList()
+    inv_ing, invIngExists = get_or_create(session, Inventory, ingredient=ing, ing_id=ing.id)
+    if invIngExists != True:
+        try:  
+            inv_ing.amount = amount
+            session.add(inv_ing)
+            session.commit()
+        except:
+            session.rollback()
+        finally:
+            session.close()
+    else:
+        try:
+            inv_ing.amount += amount
+            session.add(inv_ing)
+            session.commit()
+        except:
+            session.rollback()
+        finally:
+            session.close()
+    
 
 # Read
 
@@ -213,8 +243,7 @@ def view_all_ingredients():
     q = session.query(Ingredient)
     ings = []
     for ing in q:
-        ings += ing.name
-        print(ing.name)
+        ings.append(ing.name)
     return ings
     session.close()
 
@@ -224,8 +253,7 @@ def view_all_recipes():
     q = session.query(Recipe)
     recs = []
     for rec in q:
-        recs += rec.name
-        print(rec.name)
+        recs.append(rec.name)
     return recs
     session.close()
 
@@ -233,6 +261,7 @@ def view_recipe_ingredients(rec_name=None, rec_id=None):
     # returns all ingredients from RecIng associated with recipe
     # accepts recipe as string or by id
     session = DBSession()
+    recIngs = []
     if rec_name != None:
         q = session.query(RecIng, Recipe, Ingredient).filter(Recipe.name == rec_name).filter(Recipe.id == RecIng.rec_id).filter(Ingredient.id == RecIng.ing_id)
     elif rec_id != None:
@@ -241,8 +270,8 @@ def view_recipe_ingredients(rec_name=None, rec_id=None):
         return None
 
     for x in q:
-        print(x[2].name)
-
+        recIngs.append(x[2].name)
+    return recIngs
     session.close()
 
 def view_mealplan():
@@ -251,7 +280,6 @@ def view_mealplan():
     meals = {}
     for meal in q:
         meals[meal.rec_id] = {"name": meal.recipe.name, "amount": meal.amount}
-        print(meals)
     return meals
     session.close()
 

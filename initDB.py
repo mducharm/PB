@@ -50,8 +50,10 @@ class Inventory(Base):
 
 class InventoryTransactionHistory(Base):
     __tablename__ = 'inv_transactions'
-    ing_id = Column(Integer, ForeignKey('ingredients.id'), primary_key=True)
+    id = Column(Integer, primary_key=True)
+    ing_id = Column(Integer, ForeignKey('ingredients.id'))
     added_or_subtracted = Column(Boolean, unique=False) 
+    amount = Column(Integer)
     # added = True, subtracted = False
     # probably needs amounts too
 
