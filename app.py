@@ -1,7 +1,16 @@
 from flask import Flask, render_template, request, url_for
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm.exc import NoResultFound
+from initDB import Recipe, Ingredient, RecIng, MealPlanItem, ShoppingListItem, Inventory, InventoryTransactionHistory, Base
 from dbMethods import *
 
 app = Flask(__name__)
+
+engine = create_engine('sqlite:///pbdb.db')
+
+Base.metadata.bind = engine
+DBSession = sessionmaker(bind=engine)
 
 @app.route('/')
 def index():
@@ -9,9 +18,17 @@ def index():
 
 @app.route('/recipes-ingredients/', methods=['POST'])
 def recIngs():
+    session = DBSession()
     data = request.form['data']
-    print(data)
-    return render_template("rec-ing.html", title="Recipes & Ingredients")
+    try:
+        recipes = session.query(Recipe)
+        ingredients = session.query(Ingredient)
+    except Exception as e:
+        print(e)
+    finally:
+        session.close()
+        return render_template("rec-ing.html", title="Recipes & Ingredients", recipes=recipes, ingredients=ingredients)
+    
 
 if __name__ == '__main__':
     app.run(debug=True)

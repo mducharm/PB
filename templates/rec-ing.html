@@ -1,10 +1,52 @@
 <div class="row">
     <div class="col-sm-4 text-center">
         <h3>Recipes</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Add Recipe:</th>
+                    <td>
+                        <form>
+                        <input type="text" name="rec">
+                        <input type="submit" value="Add Ingredient" class="btn">
+                    </form>
+                    </td>
+                </tr>
+                {% for r in recipes %}
+                <tr>
+                    <th scope="row">{{ r.id}}</th>
+                    <td>{{ r.name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
     </div>
     <div class="col-sm-4 text-center"></div>
     <div class="col-sm-4 text-center">
         <h3>Ingredients</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in ingredients %}
+                <tr>
+                    <th scope="row">{{ i.id}}</th>
+                    <td>{{ i.name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div> <!-- row end -->
 <div class="row">
