@@ -1,53 +1,61 @@
 <div class="row">
     <div class="col-sm-4 text-center">
-        <h3>Recipes</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">Add Recipe:</th>
-                    <td>
-                        <form>
-                        <input type="text" name="rec">
-                        <input type="submit" value="Add Ingredient" class="btn">
-                    </form>
-                    </td>
-                </tr>
-                {% for r in recipes %}
-                <tr>
-                    <th scope="row">{{ r.id}}</th>
-                    <td>{{ r.name }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <h3>Add New Recipes & Ingredients</h3>
+
+        <!-- <form action="/recipes-ingredients/" method="POST">
+            <input type="text" name="rec">
+            <input type="submit" value="Add Recipe" class="btn">
+        </form> -->
 
     </div>
-    <div class="col-sm-4 text-center"></div>
     <div class="col-sm-4 text-center">
+        <!-- Recipes column -->
+        <h3>Recipes</h3>
+        <div class="card my-4">
+            <div class="card-body">
+                <h5 class="card-title">Add New Recipe</h5>
+                <form action="/recipes-ingredients/" method="POST">
+                    <div>
+                        <input type="text" name="name" placeholder="Recipe Name"></div>
+                    <div>
+                        <input type="submit" value="Add Recipe" class="btn"></div>
+
+                </form>
+            </div>
+        </div>
+        {% for r in recipes %}
+        <div class="card my-4" id="r{{ r.id}}">
+            <div class="card-body">
+                <h5 class="card-title">{{ r.name.title() }}</h5>
+                <ul class="list-group list-group-flush">
+                    {% for recIng in r.ingredients %}
+                    <li class="list-group-item">
+                        {{ recIng.amount }}
+                        {{ recIng.ingredient.name.title() }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    </div> <!-- Recipes column end -->
+    <div class="col-sm-4 text-center">
+        <!-- Ingredients column -->
         <h3>Ingredients</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for i in ingredients %}
-                <tr>
-                    <th scope="row">{{ i.id}}</th>
-                    <td>{{ i.name }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+        <div class="card my-4">
+            <div class="card-body">
+                <h5 class="card-title">Add New Ingredient</h5>
+
+            </div>
+        </div>
+        {% for i in ingredients %}
+        <div class="card my-4" id="i{{ i.id}}">
+            <div class="card-body">
+                <h5 class="card-title">{{ i.name.title() }}</h5>
+            </div>
+        </div>
+        {% endfor %}
+    </div> <!-- Ingredients column end -->
 </div> <!-- row end -->
 <div class="row">
     <div class="col-sm-3 text-center"><img src="/static/img/svg/cereals.svg"> </div>

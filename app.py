@@ -19,10 +19,14 @@ def index():
 @app.route('/recipes-ingredients/', methods=['POST'])
 def recIngs():
     session = DBSession()
-    data = request.form['data']
+    # if request.method == 'POST':
+    #     data = request.form['data']
+    #     if data:
+    #         addRecipe(data)
     try:
         recipes = session.query(Recipe)
         ingredients = session.query(Ingredient)
+        recIngs = session.query(RecIng)
     except Exception as e:
         print(e)
     finally:
