@@ -306,9 +306,43 @@ def view_inventory():
 
 # Update
 
-# def change_recipe_name(recipeName, newRecipeName):
+def change_recipe_name(recipeName, newRecipeName):
+    session = DBSession()
+    recipe, exists = get_or_create(session, Recipe, name=recipeName)
+    if exists == True:
+        try:
+            recipe.name = newRecipeName
+            session.commit()
+        except:
+            session.rollback()
+    else:
+        print("Recipe does not exist.")
+    session.close()
 
-# def change_recIng_amount(recipe, ingredient, newAmount):
+def change_ing_name(ingName, newIngName):
+    session = DBSession()
+    ing, exists = get_or_create(session, Ingredient, name=ingName)
+    if exists == True:
+        try:
+            ing.name = newIngName
+            session.commit()
+        except:
+            session.rollback()
+    else:
+        print("Ingredient does not exist.")
+    session.close()
+
+def change_recIng_amount(recipe, ingredient, newAmount):
+    session = DBSession()
+    recipe, recExists = get_or_create(session, Recipe, name=recipe)
+    ingredient, ingExists = get_or_create(session, Ingredient, name=ingredient)
+    recIng, riExists = get_or_create(session, RecIng, rec_id=recipe.id, ing_id=ingredient.id)
+    if recExists == True and ingExists == True:
+        recIng.amount = newAmount
+        session.commit()
+    else:
+        print("Either recipe and/or ingredient does not exist.")
+    session.close()
 
 # def use_inv_item(ingredient):
     # deletes from inventory, but also adds inv transation

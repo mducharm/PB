@@ -2,12 +2,32 @@
     background-color: rgb(126, 34, 1);
 }
 
+.nav-link {
+    background-color: rgb(126, 34, 1);
+}
+
+.nav-item {
+    padding: 5px;
+}
+
+.page-footer {
+    position: static;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    color: lightgoldenrodyellow;
+    background-color: rgb(126, 34, 1);
+}
+
 #title {
     background-color: lightgoldenrodyellow;
 }
 
 #content-box {
     background-color: lightgoldenrodyellow;
+    padding: 20px 0px 100px 0px;
 }
 
 a.navbar-brand {
@@ -25,5 +45,5 @@ h5 {
 }
 
 body {
-    background-color: rgb(126, 34, 1);
+    background-color: lightgoldenrodyellow;
 }
